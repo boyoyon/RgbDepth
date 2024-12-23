@@ -8,7 +8,10 @@
         <p>
             RGB画像とdepth画像を指定して、3Dオブジェクトを表示します。<br>
             <br>
-            <img src="images/RgbDepth.svg">
+            入力画像<br>
+            <img src="data/cat.png"><br>
+            3Dオブジェクト表示<br>
+            <img src="images/cat.gif">
         </p>
         <h2>環境構築方法</h2>
         <p>
