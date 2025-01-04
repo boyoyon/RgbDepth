@@ -31,6 +31,8 @@
                 <tr><td>PrintScreenキー押下</td><td>スクリーンショット保存</td></tr>
                 <tr><td>ウィンドウ閉じるボタン押下　</td><td>プログラム終了</td></tr>
             </table>
+            <h3>使用例</h3>
+            <img src="images/RgbDepth2.png">             
         </p>
         <h2>RGB画像からdepth画像の作成例</h2>
         <h3>depth推定ソフトウェアで画像からdepth画像を作成する。</h3>
