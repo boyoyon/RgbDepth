@@ -9,7 +9,7 @@ def main():
 
     if argc < 3:
         print('%s loads RGB image and 16-bit depth image and visualizes 3d model' % argv[0])
-        print('[usage] python %s <rgb image> <depth image> [<zScale>]' % argv[0])
+        print('[usage] python %s <rgb image> <depth image> [<zScale> <fx> <fy> <cx> <cy>]' % argv[0])
         quit()
 
     rgb = cv2.imread(argv[1])
@@ -20,18 +20,35 @@ def main():
     depth = cv2.imread(argv[2], cv2.IMREAD_UNCHANGED)
     depth = cv2.flip(depth, 1)
 
+    depth = depth.astype(np.float32)
+    depth_min = np.min(depth)
+    depth_max = np.max(depth)
+    depth = (depth - depth_min) * 65535 / (depth_max - depth_min)
+    depth = np.clip(depth, 0, 65535)
+    depth = depth.astype(np.uint16)
+
     fx = width
     fy = height
+    cx = width // 2
+    cy = height // 2
 
-    zScale = min((width, height)) // 2
+    zScale = 2
 
     if argc > 3:
         zScale = float(argv[3])
+
+    if argc > 4:
+        fx = int(argv[4])
     
-    cx = width // 2
-
-    cy = height // 2
-
+    if argc > 5:
+        fy = int(argv[5])
+    
+    if argc > 6:
+        cx = int(argv[6])
+    
+    if argc > 7:
+        cy = int(argv[7])
+    
     print('zScale:%.1f, fx:%d, fy:%d, cx:%d, cy:%d' % (zScale, fx, fy, cx, cy))
 
     RGB = o3d.geometry.Image(rgb)
