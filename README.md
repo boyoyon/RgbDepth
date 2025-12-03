@@ -42,5 +42,34 @@
             <br>
             <img src="images/step1_1.svg">
         </p>
+                <h2>Lotus-2が良さそうだったので試してみた</h2>
+        <p>
+            Lotus-2という深度推定器はなかなか良さそう。
+        <p>
+        <img src="images/Lotus2.svg">
+        <p>
+            Githubでコードが公開されているが、GPUメモリ40GBなどと記されており諦めてWEBデモを試してみた。<br>
+            ・出力がグレースケールではなく、ヒートマップ表示だったので, 泥臭くdepth画像に変換してみた。<br>
+            ・もっとスマートな方法があるとは思うが、やりかたを知らないので･･･<br>
+            <br>
+            [0] ヒートマップ画像を探して、値順の色相の配列を作成 (spectral.npy作成用。作成済なので実行不要)<br>
+            python colormap2npy.py <br>
+            <img src="src/spectral.png"><br>
+            <br>
+            [1] Lotus-2のWEBデモで画像から深度画像(ヒートマップ)を作成する。<br>
+            <a href="https://huggingface.co/spaces/haodongli/Lotus-2_Depth">Lotus-2のDepth推定デモページ</a>　SSDマシンはダメみたい<br>
+            ヒートマップの深度推定結果が得られる。(data/colormap_*.png 参照。鼻の頭の深度が飽和している･･･)<br>
+            <br>
+            [2] spectral.npyを参照して、グレースケールの深度画像に変換する。<br>
+            python heatmap2depth.py (ヒートマップ画像)<br>
+            <br>
+            [3] 3D表示する。<br>
+            python RgbDepth2.py (RGB画像) (グレースケールの深度画像)<br>
+            ・ゴミが表示される･･･デバッグ中<br>
+            ・鼻の頭がつぶれる･･･Lotus-2のヒートマップで潰れているので直せない<br>
+            ・’@'キー, '[' キー押下で画角を変更可能。'[' キーを目いっぱい押した方が良いようだ。<br>
+            ・1キー～6キーでモデルを回転できる。<br>
+             <img src="images/point_clound.gif">
+        </p>
     </body>
 </html>
