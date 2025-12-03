@@ -69,7 +69,16 @@
             ・鼻の頭がつぶれる･･･Lotus-2のヒートマップで潰れているので直せない<br>
             ・’@'キー, '[' キー押下で画角を変更可能。'[' キーを目いっぱい押した方が良いようだ。<br>
             ・1キー～6キーでモデルを回転できる。<br>
-             <img src="images/point_clound.gif">
+            ・出っ張り具合（Z scale)は第三引数で指定する。<br>
+            ・縦に長くしたい場合は第四引数を大きくする。<br>
+             <img src="images/point_clound.gif"><br>
+            RgbDepth2.py の以下のコメントを有効化(#を削除)すれば、ESCキー押下で点群をplyファイルに書き出しする。<br>
+            その代わりプログラム終了に時間が掛かるようになる。<br>
+            # base = os.path.basename(argv[1])<br>
+            # filename, _ = os.path.splitext(base)<br>
+            # dst_path = '%s_o3d.ply' % filename<br>
+            # o3d.io.write_point_cloud(dst_path, pcd)<br>
+            # print('save %s' % dst_path)<br>
         </p>
     </body>
 </html>
