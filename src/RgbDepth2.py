@@ -96,12 +96,12 @@ def main():
         quit()
 
     rgb = cv2.imread(argv[1])
-    rgb = cv2.flip(rgb, 1)
+    rgb = cv2.flip(rgb, 0)
     rgb = cv2.cvtColor(rgb, cv2.COLOR_BGR2RGB)
     height, width = rgb.shape[:2]
 
     depth = cv2.imread(argv[2], cv2.IMREAD_UNCHANGED)
-    depth = cv2.flip(depth, 1)
+    depth = cv2.flip(depth, 0)
 
     h_depth, w_depth = depth.shape
 
@@ -111,7 +111,7 @@ def main():
     fx = height
     fy = width
 
-    zScale = 1.0
+    zScale = 1.5
 
     if argc > 3:
         zScale = float(argv[3])
@@ -134,13 +134,8 @@ def main():
 
     RGB = o3d.geometry.Image(rgb)
 
-    #depth = 65535 - depth
-
-    depth //= 2
-
-    d_mean = int(np.mean(depth))
-
-    depth += 30000 + d_mean
+    depth //= 4
+    depth = 65536 * 3 // 4 - depth
 
     DEPTH = o3d.geometry.Image(depth)
     

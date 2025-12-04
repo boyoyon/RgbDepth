@@ -9,6 +9,7 @@ print('[usage] python %s <headmap image>' % argv[0])
 
 SPECTRAL = os.path.join(os.path.dirname(__file__), 'spectral.npy')
 spectral = np.load(SPECTRAL)
+
 nrSpectral = spectral.shape[0]
 
 if spectral is None:
@@ -46,11 +47,12 @@ Depths = []
 
 for hue in Hues:
 
-    minD = 999
+    minD = 255
     minI = -1
 
     for i in range(nrSpectral):
-        d = np.abs(spectral[i] - hue)
+
+        d = np.abs(int(spectral[i]) - int(hue))
         if d == 0:
             Depths.append(i / nrSpectral)
             break
@@ -64,18 +66,11 @@ for hue in Hues:
 
 # heatmap to depth
 
-for y in range(H):
 
-    print('processing %d/%d' % (y+1, H))
+for i, hue in enumerate(Hues):
 
-    for x in range(W):
-        
-        h = hsv[y][x][0]
-
-        for i in range(len(Hues)):
-            if h == Hues[i]:
-                dst[y][x] = Depths[i]
-                break
+    area = np.where(hsv[:,:,0]==hue)
+    dst[area] = Depths[i]
 
 dst *= 65535
 dst = np.clip(dst, 0, 65535)
