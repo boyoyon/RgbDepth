@@ -79,6 +79,19 @@
             # dst_path = '%s_o3d.ply' % filename<br>
             # o3d.io.write_point_cloud(dst_path, pcd)<br>
             # print('save %s' % dst_path)<br>
+            plyに書き出しする(プログラム終了に時間が掛かる)版を src/RgbDepth2_export_PLY.py に格納した。<br>
+            <br>
+            ヒートマップ画像 → グレースケール変換だと深度の諧調が少ないので, ditherを掛けてみた。<br>
+            効果があるのかイマイチ判らないが以下に格納した。<br>
+            ・src/heatmap2depth_dither4x4.py<br>
+            ・src/heatmap2depth_dither8x8.py<br>
+            <br>
+            点群PLY → メッシュPLY<br>
+            ・src/PointCloud2Mesh.py<br>
+            <br>
+            諧調不足で表面がガタガタになるので, depthにぼかしを掛けてみた。<br>
+            ・src/gauss_slider.py<br>
+            ・マウス, 矢印キーでガウス関数の半径を指定する。(出力ファイル名に付加されるのはガウス直径･･･)<br>
         </p>
     </body>
 </html>
