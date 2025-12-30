@@ -99,7 +99,7 @@
 <h3>　STEP.5　PLYファイルを表示する</h3>
 
 <p>
-　　python src2\o3d_display_ply.py　(PLYファイル)<br>
+　　python src2\o3d_display_ply.py　(PLYファイル) [(z値スケール)]<br>
 <br>
 　　・<strong>マウスドラッグ</strong>：　点群の回転<br>
 　　・<strong>ホイールボタン＋マウスドラッグ</strong>：　点群の移動<br>
