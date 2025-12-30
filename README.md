@@ -52,46 +52,67 @@
             ・出力がグレースケールではなく、ヒートマップ表示だったので, 泥臭くdepth画像に変換してみた。<br>
             ・もっとスマートな方法があるとは思うが、やりかたを知らないので･･･<br>
             <br>
-            [0] ヒートマップ画像を探して、値順の色相の配列を作成 (spectral.npy作成用。作成済なので実行不要)<br>
-            python colormap2npy.py <br>
-            <img src="src/spectral.png"><br>
-            <br>
-            [1] Lotus-2のWEBデモで画像から深度画像(ヒートマップ)を作成する。<br>
-            <a href="https://huggingface.co/spaces/haodongli/Lotus-2_Depth">Lotus-2のDepth推定デモページ</a>　SSDマシンはダメみたい<br>
-            ヒートマップの深度推定結果が得られる。(data/colormap_*.png 参照。鼻の頭の深度が飽和している･･･)<br>
-            <br>
-            [2] spectral.npyを参照して、グレースケールの深度画像に変換する。<br>
-            python heatmap2depth.py (ヒートマップ画像)<br>
-            <br>
-            [3] 3D表示する。<br>
-            python RgbDepth2.py (RGB画像) (グレースケールの深度画像)<br>
-            ・ゴミが表示される･･･修正済<br>
-            ・鼻の頭がつぶれる･･･Lotus-2のヒートマップで潰れているので直せない<br>
-            ・’@'キー, '[' キー押下で画角を変更可能。<br>
-            ・1キー～6キーでモデルを回転できる。<br>
-            ・出っ張り具合（Z scale)は第三引数で指定する。<br>
-            ・縦に長くしたい場合は第四引数を大きくする。<br>
-             <img src="images/point_clound.gif"><br>
-            RgbDepth2.py の以下のコメントを有効化(#を削除)すれば、ESCキー押下で点群をplyファイルに書き出しする。<br>
-            その代わりプログラム終了に時間が掛かるようになる。<br>
-            # base = os.path.basename(argv[1])<br>
-            # filename, _ = os.path.splitext(base)<br>
-            # dst_path = '%s_o3d.ply' % filename<br>
-            # o3d.io.write_point_cloud(dst_path, pcd)<br>
-            # print('save %s' % dst_path)<br>
-            plyに書き出しする(プログラム終了に時間が掛かる)版を src/RgbDepth2_export_PLY.py に格納した。<br>
-            <br>
-            ヒートマップ画像 → グレースケール変換だと深度の諧調が少ないので, ditherを掛けてみた。<br>
-            効果があるのかイマイチ判らないが以下に格納した。<br>
-            ・src/heatmap2depth_dither4x4.py<br>
-            ・src/heatmap2depth_dither8x8.py<br>
-            <br>
-            点群PLY → メッシュPLY<br>
-            ・src/PointCloud2Mesh.py<br>
-            <br>
-            諧調不足で表面がガタガタになるので, depthにぼかしを掛けてみた。<br>
-            ・src/gauss_slider.py<br>
-            ・マウス, 矢印キーでガウス関数の半径を指定する。(出力ファイル名に付加されるのはガウス直径･･･)<br>
-        </p>
-    </body>
+<img src="images/workflow.svg"><br>
+</p>
+
+<h3>　STEP.0　カラーマップから色相の配列を作成する</h3>
+<p>
+　　python src2\colormap2npy.py <br>
+　　この処理は一度実施するだけでよい(実施済)<br>
+    <img src="src/spectral.png"><br>
+</p>
+
+<h3>　STEP.1　Lotus-2 の WEB デモで画像から深度画像を作成する</h3>
+<p>
+　　<a href="https://huggingface.co/spaces/haodongli/Lotus-2_Depth">Lotus-2のDepth推定デモページ</a><br>
+　　カラーマップ(Spectral)の深度推定結果が得られる。<br>
+    <img src="images/Lotus2_web_demo.png"><br>
+　　・画面右上のダウンロードボタンを押して深度画像をダウンロードする。<br>
+　　・MS Paintなどでダウンロードした深度画像(.webp)を .png に変換する。<br>
+</p>
+
+<h3>　STEP.2　カラーマップ(Spectral)の深度画像をグレースケールの深度画像に変換する</h3>
+           
+<p>
+　　python src2\Spectral2Grayscale.py (Spectral Depth Image)<br>
+</p>
+    
+<h3>　STEP.3　深度画像を補間する</h3>
+<p>
+　　カラーマップをグレースケールにした深度画像は諧調数が少なく深度にギャップができるので, 補間～ぼかしにより諧調を復元する。<br>
+<br>
+ 　　python src2\interpolate_and_blur.py (グレースケール深度画像) [(ぼかすレベル)]<br>
+<br>
+　　※ 1ラインずつ2パス処理するので時間が掛かる･･･<br>
+</p>
+<img src="images/interpolation_and_blur.svg">
+<br>
+　　※ 鼻のあたまが掛けているのは Lotus2の推定深度が飽和しているため<br>
+</p>
+
+<h3>　STEP.4　RGB画像, 深度画像からPLYファイルを作成する</h3>
+
+<p>
+　　python src2\RgbDepth2PLY.py　(RGB画像) (深度画像)<br>
+</p>
+
+<h3>　STEP.5　PLYファイルを表示する</h3>
+
+<p>
+　　python src2\o3d_display_ply.py　(PLYファイル)<br>
+<br>
+　　・<strong>マウスドラッグ</strong>：　点群の回転<br>
+　　・<strong>ホイールボタン＋マウスドラッグ</strong>：　点群の移動<br>
+　　・<strong>`@`キー, '['キー</strong>：　表示画角変更<br>
+<img src="images/view_angle.png"><br>
+　　・<strong>'-'キー,'＾'キー</strong>：　点群のサイズ変更<br>
+<img src="images/point_cloud_size.png"><br>
+　　・<strong>pキー</strong>：　スクリーンキャプチャー<br>
+　　・<strong>1/2/3キー</strong>：　点群の回転,　<strong>＋Shiftキー</strong>：　逆回転,　<strong>＋Ctrlキー</strong>：　回転量10倍<br>
+　　・<strong>4/5/6キー</strong>：　点群の平行移動,　<strong>＋Shiftキー</strong>：　逆方向に行移動　<strong>＋Ctrlキー</strong>：　移動量10倍<br>
+　　・<strong>7キー</strong>：　回転ステップを下げる,　<strong>＋Shiftキー</strong>：　回転ステップを上げる<br>
+　　・<strong>8キー</strong>：　平行移動ステップを下げる,　<strong>＋Shiftキー</strong>：　平行移動ステップを上げる<br>
+　　・<strong>ESCキー</strong>:　終了　
+</p>
+</body>
 </html>
