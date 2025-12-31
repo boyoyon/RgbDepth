@@ -2,14 +2,21 @@ import cv2, os, sys
 import numpy as np
 import open3d as o3d
 
-delta = np.pi / 180
-delta2 = 0.005
+KEY_LEFT  = 263
+KEY_RIGHT = 262
+KEY_UP    = 265
+KEY_DOWN  = 264
+
+angle_step = np.pi / 180
+translation_step = 0.005
+scale_up = 1.5
+scale_down = 0.5
 
 pcd = None
 
-def key_callback_up(vis, action, mods):
+def key_callback_updown_angle_step(vis, action, mods):
 
-    global delta, delta2
+    global angle_step, translation_step
 
     shift_pressed = (mods & 0x1) != 0
     ctrl_pressed = (mods & 0x2) != 0
@@ -20,28 +27,28 @@ def key_callback_up(vis, action, mods):
 
         if ctrl_pressed:
             
-            delta2 *= 1.5
+            angle_step *= 1.5
 
         else:
 
-            delta2 *= 1.1
+            angle_step *= 1.1
     else:
 
         if ctrl_pressed:
             
-            delta *= 1.5
+            angle_step *= 0.5
 
         else:
 
-            delta *= 1.1
+            angle_step *= 0.9
 
-    print(delta, delta2)
+    print(angle_step, translation_step)
 
     return True
 
-def key_callback_down(vis, action, mods):
+def key_callback_updown_translation_step(vis, action, mods):
 
-    global delta, delta2
+    global angle_step, translation_step
 
     shift_pressed = (mods & 0x1) != 0
     ctrl_pressed = (mods & 0x2) != 0
@@ -52,22 +59,22 @@ def key_callback_down(vis, action, mods):
 
         if ctrl_pressed:
             
-            delta2 *= 0.5
+            translation_step *= 1.5
 
         else:
 
-            delta2 *= 0.9
+            translation_step *= 1.1
     else:
 
         if ctrl_pressed:
             
-            delta *= 0.5
+            translation_step *= 0.5
 
         else:
 
-            delta *= 0.9
+            translation_step *= 0.9
 
-    print(delta, delta2)
+    print(angle_step, translation_step)
 
     return True
 
@@ -79,9 +86,9 @@ def key_callback_1(vis, action, mods):
     #if action == 1: # on pressing
 
     if shift_pressed:
-        angle = -delta
+        angle = -angle_step
     else:
-        angle = delta
+        angle = angle_step
 
     if ctrl_pressed:
         angle *= 10
@@ -104,9 +111,9 @@ def key_callback_2(vis, action, mods):
     #if action == 1: # on pressing
 
     if shift_pressed:
-        angle = -delta
+        angle = -angle_step
     else:
-        angle = delta
+        angle = angle_step
 
     if ctrl_pressed:
         angle *= 10
@@ -129,9 +136,9 @@ def key_callback_3(vis, action, mods):
     #if action == 1: # on pressing
 
     if shift_pressed:
-        angle = -delta
+        angle = -angle_step
     else:
-        angle = delta
+        angle = angle_step
 
     if ctrl_pressed:
         angle *= 10
@@ -154,9 +161,9 @@ def key_callback_4(vis, action, mods):
     #if action == 1: # on pressing
 
     if shift_pressed:
-        offset = -delta2
+        offset = -translation_step
     else:
-        offset = delta2
+        offset = translation_step
 
     if ctrl_pressed:
         offset *= 10
@@ -179,9 +186,9 @@ def key_callback_5(vis, action, mods):
     #if action == 1: # on pressing
 
     if shift_pressed:
-        offset = -delta2
+        offset = -translation_step
     else:
-        offset = delta2
+        offset = translation_step
 
     if ctrl_pressed:
         offset *= 10
@@ -204,9 +211,9 @@ def key_callback_6(vis, action, mods):
     #if action == 1: # on pressing
 
     if shift_pressed:
-        offset = -delta2
+        offset = -translation_step
     else:
-        offset = delta2
+        offset = translation_step
 
     if ctrl_pressed:
         offset *= 10
@@ -219,6 +226,50 @@ def key_callback_6(vis, action, mods):
     transform = translate
     pcd.transform(transform)
 
+    return True
+
+def key_callback_reset_step(vis, action, mod):
+
+    global angle_step, translation_step, scale
+
+    angle_step = np.pi / 180
+    translation_step = 0.005
+    scale_up = 1.3
+    scale_down = 0.7
+
+    return True
+    
+def key_callback_scale_up(vis, action, mod):
+
+    scale = np.array([
+        [scale_up, 0,        0,        0],
+        [0,        scale_up, 0,        0],
+        [0,        0,        scale_up, 0],
+        [0,        0,        0,        1]])
+
+    transform = scale
+    pcd.transform(transform)
+
+    center = pcd.get_center()
+    pcd.translate(-center)
+    
+    return True
+
+
+def key_callback_scale_down(vis, action, mod):
+
+    scale = np.array([
+        [scale_down, 0,          0,          0],
+        [0,          scale_down, 0,          0],
+        [0,          0,          scale_down, 0],
+        [0,          0,          0,          1]])
+
+    transform = scale
+    pcd.transform(transform)
+
+    center = pcd.get_center()
+    pcd.translate(-center)
+    
     return True
 
 def main():
@@ -256,14 +307,17 @@ def main():
     vis = o3d.visualization.VisualizerWithKeyCallback()
     vis.create_window()
     vis.add_geometry(pcd)
+    vis.register_key_action_callback(ord("0"), key_callback_reset_step)
     vis.register_key_action_callback(ord("1"), key_callback_1)
     vis.register_key_action_callback(ord("2"), key_callback_2)
     vis.register_key_action_callback(ord("3"), key_callback_3)
     vis.register_key_action_callback(ord("4"), key_callback_4)
     vis.register_key_action_callback(ord("5"), key_callback_5)
     vis.register_key_action_callback(ord("6"), key_callback_6)
-    vis.register_key_action_callback(ord("7"), key_callback_up)
-    vis.register_key_action_callback(ord("8"), key_callback_down)
+    vis.register_key_action_callback(ord("7"), key_callback_updown_angle_step)
+    vis.register_key_action_callback(ord("8"), key_callback_updown_translation_step)
+    vis.register_key_action_callback(KEY_UP, key_callback_scale_up)
+    vis.register_key_action_callback(KEY_DOWN, key_callback_scale_down)
 
     # 実行
     vis.run()
