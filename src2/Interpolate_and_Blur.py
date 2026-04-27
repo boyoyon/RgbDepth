@@ -31,7 +31,10 @@ def interpolate_lvl2(depthImage, X, D, y):
             Error += DeltaY2
 
             while Error > 0:
-              d += Sign
+              if Sign > 0:
+                  d += Sign
+              else:
+                  d -= -Sign
               Error -= DeltaX2
 
             depthImage[y][x] = d
