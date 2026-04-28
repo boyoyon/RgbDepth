@@ -114,5 +114,23 @@
 　　・<strong>8キー</strong>：　平行移動ステップを下げる,　<strong>＋Shiftキー</strong>：　平行移動ステップを上げる<br>
 　　・<strong>ESCキー</strong>:　終了　
 </p>
+<h3>ply表示</h3>
+<p>
+python　src2\o3d_display.py (plyファイル)　[(zScale)]<br>
+・Line Set PLY / Point Cloud PLY / Triangle Mesh PLY を表示可能<br>
+・1/2/3/4/5/6キー押下：オブジェクトの回転、平行移動<br>
+・7/8キー押下：回転量、平行移動量を小さくする/大きくする<br>
+・↑/↓：オブジェクトの拡大/縮小<br>
+・sキー：plyにセーブ
+(Visualizerの元々の機能はhキー押下でコンソールに表示される)<br>
+(例)
+・Lキー押下：ライティングのon/offをトグル<br>
+</p>
+<h3>pcd→mesh</h3>
+<p>
+python src2/PointCloud2Mesh.py (pcd PLY)<br>
+・裏返しに変換される場合は、-reverseをつける<br>
+　python　src2/PointClound2Mesh.py (pcd PLY) -reverse
+</p>
 </body>
 </html>
