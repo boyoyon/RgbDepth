@@ -119,7 +119,7 @@
 python　src2\o3d_display.py (plyファイル)　[(zScale)]<br>
 ・Line Set PLY / Point Cloud PLY / Triangle Mesh PLY を表示可能<br>
 ・1/2/3/4/5/6キー押下：オブジェクトの回転、平行移動<br>
-                      +shiftで反対方向に回転、平行移動<br>
+　　　　　　　　　　　　+shiftで反対方向に回転、平行移動<br>
     　　　　　　　　　　+ctrlで回転量、平行移動量up<br>
 ・7/8キー押下：回転量、平行移動量を小さくする/大きくする<br>
 ・↑/↓：オブジェクトの拡大/縮小<br>
