@@ -134,5 +134,24 @@ python src2/PointCloud2Mesh.py (pcd PLY)<br>
 ・裏返しに変換される場合は、-reverseをつける<br>
 　python　src2/PointClound2Mesh.py (pcd PLY) -reverse
 </p>
+<h3>YOLO26n-depthを試してみた</h3>
+<p>
+(準備)<br>
+・モデルの重みをダウンロードする<br>
+　<a href="https://platform.ultralytics.com/ultralytics/yolo26/yolo26n-depth">https://platform.ultralytics.com/ultralytics/yolo26/yolo26n-depth</a><br>
+　clone model をクリックし、yolo26n-depth.pt(12.7MB)をダウンロードし、src2フォルダに格納する<br>
+・pip install opencv-python open3d ultralytics
+</p>
+<p>
+(試し方)<br>
+・画像から depth 画像を作成する<br>
+　python src2/estimate_by_yolo26n-depth.py (画像ファイル)<br>
+  カレントフォルダに 画像ファイル_depth.png という名前でdepth画像が作成される。<br>
+・RGB画像、depth画像からplyファイルを作成する<br>
+　python　src2/RgbDepth2ply.py　(RGB画像ファイル)　(depth画像ファイル)<br>
+<br>
+顔は歪んだ平面になる･･･
+</p>
+<img src="images/yolo26n.gif">
 </body>
 </html>
