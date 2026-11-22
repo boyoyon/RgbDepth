@@ -69,6 +69,8 @@
 ・無限遠の推定値もあるので10mでクリップした<br>
 ・RGB画像、深度画像から点群を作る差にに、風景なら数倍、顔画像などでは100倍程度にz値を拡大してみた
 </p>
+<img src="images/depthpro2_landscape.gif">
+<img src="images/depthpro2_face.gif">
 <h2>YOLO26n-depthを試してみた</h2>
 <p>
 (準備)<br>
