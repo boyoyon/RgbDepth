@@ -42,7 +42,54 @@
             <br>
             <img src="images/step1_1.svg">
         </p>
-                <h2>Lotus-2が良さそうだったので試してみた</h2>
+<h2>DepthPro 2 を試してみた</h2>
+<p>
+(環境構築)<br>
+・https://github.com/apple-aiml-research/ml-depth-pro-2<br>
+　Code --> Download ZIP<br>
+・ml-depth-pro-2-main.zip を解凍する<br>
+・cd ml-depth-pro-2-main<br>
+<br>
+・conda create -y -n depth_pro_2 python=3.10<br>
+・conda activate depth_pro_2<br>
+・pip install av<br>
+・pip install numpy<br>
+・pip install timm<br>
+・pip install pillow_heif<br>
+・pip install opencv-python<br>
+<br>
+・src_depthpro2\test_depth_pro_2.py を ml-depth-pro-2-main\src フォルダに配置
+</p>
+<p>
+・python src\test_depth_pro_2.py (画像ファイル)<br>
+<br>
+・最初の実行時に3.25GBのパラメータがダウンロードされる。<br>
+・CPUでも数分で推定完了<br>
+・メートル単位で深度が推定される<br>
+・無限遠の推定値もあるので10mでクリップした<br>
+・RGB画像、深度画像から点群を作る差にに、風景なら数倍、顔画像などでは100倍程度にz値を拡大してみた
+</p>
+<h2>YOLO26n-depthを試してみた</h2>
+<p>
+(準備)<br>
+・モデルの重みをダウンロードする<br>
+　<a href="https://platform.ultralytics.com/ultralytics/yolo26/yolo26n-depth">https://platform.ultralytics.com/ultralytics/yolo26/yolo26n-depth</a><br>
+　clone model をクリックし、yolo26n-depth.pt(12.7MB)をダウンロードし、src2フォルダに格納する<br>
+・pip install opencv-python open3d ultralytics
+</p>
+<p>
+(試し方)<br>
+・画像から depth 画像を作成する<br>
+　python src2/estimate_by_yolo26n-depth.py (画像ファイル)<br>
+  カレントフォルダに 画像ファイル_depth.png という名前でdepth画像が作成される。<br>
+・RGB画像、depth画像からplyファイルを作成する<br>
+　python　src2/RgbDepth2ply.py　(RGB画像ファイル)　(depth画像ファイル)<br>
+<br>
+顔は歪んだ平面になる･･･
+</p>
+<img src="images/yolo26n.gif">
+        
+<h2>Lotus-2が良さそうだったので試してみた</h2>
         <p>
             Lotus-2という深度推定器はなかなか良さそう。
         <p>
@@ -134,24 +181,6 @@ python src2/PointCloud2Mesh.py (pcd PLY)<br>
 ・裏返しに変換される場合は、-reverseをつける<br>
 　python　src2/PointClound2Mesh.py (pcd PLY) -reverse
 </p>
-<h3>YOLO26n-depthを試してみた</h3>
-<p>
-(準備)<br>
-・モデルの重みをダウンロードする<br>
-　<a href="https://platform.ultralytics.com/ultralytics/yolo26/yolo26n-depth">https://platform.ultralytics.com/ultralytics/yolo26/yolo26n-depth</a><br>
-　clone model をクリックし、yolo26n-depth.pt(12.7MB)をダウンロードし、src2フォルダに格納する<br>
-・pip install opencv-python open3d ultralytics
-</p>
-<p>
-(試し方)<br>
-・画像から depth 画像を作成する<br>
-　python src2/estimate_by_yolo26n-depth.py (画像ファイル)<br>
-  カレントフォルダに 画像ファイル_depth.png という名前でdepth画像が作成される。<br>
-・RGB画像、depth画像からplyファイルを作成する<br>
-　python　src2/RgbDepth2ply.py　(RGB画像ファイル)　(depth画像ファイル)<br>
-<br>
-顔は歪んだ平面になる･･･
-</p>
-<img src="images/yolo26n.gif">
+
 </body>
 </html>
