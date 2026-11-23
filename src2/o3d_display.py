@@ -17,6 +17,24 @@ geo_type = None
 
 fTerminate = False
 
+BGC = np.asarray([1.0, 1.0, 1.0])
+
+def key_callback_toggle_background_color(vis, action, mods):
+
+    global BGC
+
+    if action == 0:
+
+        render_option = vis.get_render_option()
+        if np.array_equal(BGC, [1.0, 1.0, 1.0]):
+            BGC = np.asarray([0.0, 0.0, 0.0])
+        else:
+            BGC = np.asarray([1.0, 1.0, 1.0])
+
+        render_option.background_color = BGC
+
+    return True
+
 def key_callback_updown_angle_step(vis, action, mods):
 
     global angle_step, translation_step
@@ -337,6 +355,7 @@ def main():
     vis.register_key_action_callback(ord("8"), key_callback_updown_translation_step)
     vis.register_key_action_callback(KEY_UP, key_callback_scale_up)
     vis.register_key_action_callback(KEY_DOWN, key_callback_scale_down)
+    vis.register_key_action_callback(ord("B"), key_callback_toggle_background_color)
     vis.register_key_action_callback(ord("S"), key_callback_set_save_flag)
 
     # 実行
