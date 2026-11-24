@@ -331,14 +331,10 @@ def main():
 
     RGB = o3d.geometry.Image(rgb)
 
-    #depth = 65535 - depth
-    depth //= 2
-    depth += 30000
-
     DEPTH = o3d.geometry.Image(depth)
     
     rgbd = o3d.geometry.RGBDImage.create_from_color_and_depth(
-            RGB, DEPTH, depth_scale=65535, convert_rgb_to_intensity=False)
+            RGB, DEPTH, convert_rgb_to_intensity=False)
 
     cam = o3d.camera.PinholeCameraIntrinsic()
     cam.intrinsic_matrix = np.asarray([[fx, 0, cx], [0, fy, cy], [0, 0, 1]])
