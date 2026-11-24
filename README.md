@@ -43,6 +43,8 @@
             <img src="images/step1_1.svg">
         </p>
 <h2>DepthPro 2 を試してみた</h2>
+<img src="images/depthpro2_landscape2.gif">
+<img src="images/depthpro2_face.gif">
 <p>
 (環境構築)<br>
 ・https://github.com/apple-aiml-research/ml-depth-pro-2<br>
@@ -58,30 +60,48 @@
 ・pip install pillow_heif<br>
 ・pip install opencv-python<br>
 <br>
-・src_depthpro2\test_depth_pro_2.py を ml-depth-pro-2-main\src フォルダに配置
-</p>
-<p>
-・python src_depthpro2\test_depth_pro_2.py (画像ファイル)<br>
+・src_depthpro2\test_depth_pro_2_img2npy.py を ml-depth-pro-2-main\src フォルダに配置<br>
+<br>
+・DepthPro2で画像から深度データを作成する<br>
+　src_depthpro2\test_depth_pro_2_img2npy.py　(画像ファイル)<br>
+　src_depthpro2\test_depth_pro_2_img2npy.py　(画像ファイルへのワイルドカード 例：*.png)<br>
+　src_depthpro2\test_depth_pro_2_img2npy.py　(画像ファイル1)　(画像ファイル2)　･･･<br>
 <br>
 ・最初の実行時に3.25GBのパラメータがダウンロードされる。<br>
 ・CPUでも数分で推定完了<br>
-・メートル単位で深度が推定される<br>
-・無限遠の推定値もあるので10mでクリップした<br>
-・RGB画像、深度画像から点群を作る際に、風景なら数倍、顔画像などでは100倍程度にz値を拡大してみた
-</p>
-<img src="images/depthpro2_landscape.gif">
-<img src="images/depthpro2_face.gif">
-<p>
-深度を画像にする必要もなかったのでクリッピングなし、型変更なしでデータファイル(.npy)に落とし<br>
-・src_depthpro2\test_depth_pro_2_img2npy.py　(画像ファイル)<br>
-・src_depthpro2\test_depth_pro_2_img2npy.py　(画像ファイルへのワイルドカード 例：*.png)<br>
-・src_depthpro2\test_depth_pro_2_img2npy.py　(画像ファイル1)　(画像ファイル2)　･･･<br>
+・メートル単位で深度が推定される。屋外画像などでは inf も含まれる<br>
 <br>
-画像と深度データから点群を作成してみたら、すごかった･･･<br>
-・src_depthpro2\ImgNpy2Pcd.py　(画像ファイル)　(深度データ)　[(zスケール)]<br>
+・画像と深度データから点群を作成する<br>
+　src_depthpro2\ImgNpy2Pcd.py　(画像ファイル)　(深度データ(.npy))　[(zスケール)]<br>
 　sキー押下で点群データが displayed.ply に保存される<br>
+<br>
+・使い勝手が悪いが、以下のツールで余計な点群を削除した<br>
+　<a href="https://github.com/boyoyon/PLY_EDIT">src/pcd_edit.exe</a><br>　
+　src\axisXYZ.ply、src\plane_x0.ply、src\plane_y0.ply、src\plane_z0.ply も必要<br>
+　(console)<br>
+　　l　displayed.ply ･･･ 点群plyをロードする<br>
+　(visualizer)<br>
+　　削除したい点と残したい点を面で分離できるように、点群を回転、平行移動する<br>
+    <br>
+　　1キー：x軸周りに点群を回転　+shiftで反対周り、+ctlで高速回転<br>
+　　2キー：y軸周りに点群を回転　+shiftで反対周り、+ctlで高速回転<br>
+　　3キー：z軸周りに点群を回転　+shiftで反対周り、+ctlで高速回転<br>
+　　4キー：x軸方向に平行移動　+shoftで反対方向、+ctlで高速移動<br>
+　　5キー：y軸方向に平行移動　+shoftで反対方向、+ctlで高速移動<br>
+　　6キー：z軸方向に平行移動　+shoftで反対方向、+ctlで高速移動<br>
+　　aキー：座標軸　表示/非表示<br>
+　　xキー：x平面　表示/非表示<br>
+　　yキー：y平面　表示/非表示<br>
+　　zキー：z平面　表示/非表示<br>
+<br>
+  (console)<br>
+　　remove　x：　x>0 の点を削除する<br>
+　　remove　-x：　x<0 の点を削除する<br>
+　　※ y、-y、z、-z も同様<br>
+<br>
+　　save　(plyファイル名)：編集した点群をセーブする
 </p>
-<img src="images/depthpro2_landscape2.gif">
+
 <h2>YOLO26n-depthを試してみた</h2>
 <p>
 (準備)<br>
