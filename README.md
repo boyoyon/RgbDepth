@@ -79,7 +79,9 @@
 　<a href="https://github.com/boyoyon/PLY_EDIT">src/pcd_edit.exe</a><br>　
 　src\axisXYZ.ply、src\plane_x0.ply、src\plane_y0.ply、src\plane_z0.ply も必要<br>
 　(console)<br>
-　　l　displayed.ply ･･･ 点群plyをロードする<br>
+　　L　displayed.ply ･･･ 点群plyをロード～スケーリングする<br>
+　　※ 点群が大きすぎたり小さすぎたりすると編集できないので、大小文字 L でロードした場合は<br>
+    　　スケーリングすることにした。<br>
 　(visualizer)<br>
 　　削除したい点と残したい点を面で分離できるように、点群を回転、平行移動する<br>
     <br>
@@ -104,7 +106,7 @@
 <br>
 　　save　(plyファイル名)：編集した点群をセーブする
 </p>
-
+<img src="images/pcd_edit.svg">
 <h2>YOLO26n-depthを試してみた</h2>
 <p>
 (準備)<br>
