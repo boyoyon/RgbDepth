@@ -61,7 +61,7 @@
 ・src_depthpro2\test_depth_pro_2.py を ml-depth-pro-2-main\src フォルダに配置
 </p>
 <p>
-・python src\test_depth_pro_2.py (画像ファイル)<br>
+・python src_depthpro2\test_depth_pro_2.py (画像ファイル)<br>
 <br>
 ・最初の実行時に3.25GBのパラメータがダウンロードされる。<br>
 ・CPUでも数分で推定完了<br>
