@@ -78,7 +78,8 @@
 ・src_depthpro2\test_depth_pro_2_img2npy.py　(画像ファイル1)　(画像ファイル2)　･･･<br>
 <br>
 画像と深度データから点群を作成してみたら、すごかった･･･<br>
-・src_depthpro2\ImgNpy2Pcd.py　(画像ファイル)　(深度データ)　[(zスケール)]
+・src_depthpro2\ImgNpy2Pcd.py　(画像ファイル)　(深度データ)　[(zスケール)]<br>
+　sキー押下で点群データが displayed.ply に保存される<br>
 </p>
 <img src="images/depthpro2_landscape2.gif">
 <h2>YOLO26n-depthを試してみた</h2>
