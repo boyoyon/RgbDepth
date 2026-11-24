@@ -76,7 +76,7 @@
 　sキー押下で点群データが displayed.ply に保存される<br>
 <br>
 ・使い勝手が悪いが、以下のツールで余計な点を削除した<br>
-　<a href="https://github.com/boyoyon/PLY_EDIT">src/pcd_edit.exe</a><br>　
+　<a href="https://github.com/boyoyon/PLY_EDIT">src/pcd_edit.py</a><br>　
 　src\axisXYZ.ply、src\plane_x0.ply、src\plane_y0.ply、src\plane_z0.ply も必要<br>
 　(console)<br>
 　　L　displayed.ply ･･･ 点群plyをロード～スケーリングする<br>
