@@ -77,7 +77,7 @@
 ・src_depthpro2\test_depth_pro_2_img2npy.py　(画像ファイルへのワイルドカード 例：*.png)<br>
 ・src_depthpro2\test_depth_pro_2_img2npy.py　(画像ファイル1)　(画像ファイル2)　･･･<br>
 <br>
-画像と深度データから点群を作成してみた<br>
+画像と深度データから点群を作成してみたら、すごかった･･･<br>
 ・src_depthpro2\ImgNpy2Pcd.py　(画像ファイル)　(深度データ)　[(zスケール)]
 </p>
 <img src="images/depthpro2_landscape2.gif">
