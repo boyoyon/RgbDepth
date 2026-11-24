@@ -71,6 +71,16 @@
 </p>
 <img src="images/depthpro2_landscape.gif">
 <img src="images/depthpro2_face.gif">
+<p>
+深度を画像にする必要もなかったのでクリッピングなし、型変更なしでデータファイル(.npy)に落とし<br>
+・src_depthpro2\test_depth_pro_2_img2npy.py　(画像ファイル)<br>
+・src_depthpro2\test_depth_pro_2_img2npy.py　(画像ファイルへのワイルドカード)<br>
+・src_depthpro2\test_depth_pro_2_img2npy.py　(画像ファイル1)　(画像ファイル2)　･･･<br>
+<br>
+画像と深度データから点群を作成してみた<br>
+・src_depthpro2\ImgNpy2Pcd.py　(画像ファイル)　(深度データ)　[(zスケール)]
+</p>
+<img src="images/depthpro2_landscape2.gif">
 <h2>YOLO26n-depthを試してみた</h2>
 <p>
 (準備)<br>
