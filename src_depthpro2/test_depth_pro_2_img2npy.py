@@ -39,7 +39,7 @@ for p in paths:
         dst_path = '%s_depth_%d.npy' % (filename, no)
         no += 1
 
-    np.save(dst_path, depth)
+    np.save(dst_path, depth.numpy())
     print('save %s' % dst_path)
 
 
