@@ -132,6 +132,12 @@
 　　p：スクリーンキャプチャー<br>
 　　ESCキー：終了
 </p>
+<p>
+・点群 → メッシュ<br>
+　python src2/PointCloud2Mesh.py (pcd PLY)<br>
+　・裏返しに変換される場合は、-reverseをつける<br>
+　　python　src2/PointClound2Mesh.py (pcd PLY) -reverse
+</p>
 <h2>YOLO26n-depthを試してみた</h2>
 <p>
 (準備)<br>
@@ -238,12 +244,7 @@ python　src2\o3d_display.py (plyファイル)　[(zScale)]<br>
 (例)
 ・Lキー押下：ライティングのon/offをトグル<br>
 </p>
-<h3>pcd→mesh</h3>
-<p>
-python src2/PointCloud2Mesh.py (pcd PLY)<br>
-・裏返しに変換される場合は、-reverseをつける<br>
-　python　src2/PointClound2Mesh.py (pcd PLY) -reverse
-</p>
+
 
 </body>
 </html>
