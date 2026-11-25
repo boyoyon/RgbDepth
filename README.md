@@ -43,7 +43,11 @@
             <img src="images/step1_1.svg">
         </p>
 <h2>DepthPro 2 を試してみた</h2>
+入力画像
+<img src="images/input_image.png">
+点群化　例１
 <img src="images/depthpro2_landscape2.gif">
+点群化　例２
 <img src="images/depthpro2_face.gif">
 <p>
 (環境構築)<br>
