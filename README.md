@@ -80,7 +80,7 @@
 　src\axisXYZ.ply、src\plane_x0.ply、src\plane_y0.ply、src\plane_z0.ply も必要<br>
 　(console)<br>
 　　L　(点群 plyファイル) ･･･ 点群 ply をロード～スケーリングする<br>
-　　※ 点群が大きすぎたり小さすぎたりすると編集できないので、大小文字 L でロードした場合は<br>
+　　※ 点群が大きすぎたり小さすぎたりすると編集できないので、大文字 L でロードした場合は<br>
     　　スケーリングすることにした。<br>
 　　l　(点群 plyファイル) ･･･ 点群 ply をロード (スケーリングなし)<br>    
 　(visualizer)<br>
