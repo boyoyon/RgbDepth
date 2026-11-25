@@ -79,9 +79,10 @@
 　<a href="https://github.com/boyoyon/PLY_EDIT">src/pcd_edit.py</a><br>　
 　src\axisXYZ.ply、src\plane_x0.ply、src\plane_y0.ply、src\plane_z0.ply も必要<br>
 　(console)<br>
-　　L　displayed.ply ･･･ 点群plyをロード～スケーリングする<br>
+　　L　(点群 plyファイル) ･･･ 点群 ply をロード～スケーリングする<br>
 　　※ 点群が大きすぎたり小さすぎたりすると編集できないので、大小文字 L でロードした場合は<br>
     　　スケーリングすることにした。<br>
+　　l　(点群 plyファイル) ･･･ 点群 ply をロード (スケーリングなし)<br>    
 　(visualizer)<br>
 　　削除したい点と残したい点を面で分離できるように、点群を回転、平行移動する<br>
     <br>
